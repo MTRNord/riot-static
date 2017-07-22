@@ -181,12 +181,12 @@
         memberInfo := p.MemberMap[ev.Sender]
     %}
 
-    <tr>
+    <tr itemscope itemprop="hasPart" itemtype="http://schema.org/Message">
         {%= p.printPermalinkColumn(ev) %}
         {% switch ev.Type %}
             {% case "m.room.message" %}
                 <td nowrap>
-                    <a href="./room/{%s p.RoomInfo.RoomID %}/members/{%s ev.Sender %}">
+                    <a href="./room/{%s p.RoomInfo.RoomID %}/members/{%s ev.Sender %}" itemscope itemprop="sender" itemtype="http://schema.org/Person">
 
                         {% if memberInfo.AvatarURL.IsValid() %}
                             <img class="avatar userAvatar" src="{%s memberInfo.AvatarURL.ToThumbURL(48, 48, "crop") %}" />
@@ -197,9 +197,10 @@
                         {% if ev.Content["msgtype"] == "m.emote" %}*{% space %}{% endif %}
 
                         {%s memberInfo.GetName() %}
+                        <meta itemprop="name" content="{%s memberInfo.GetName() %}" />
                     </a>
                 </td>
-                <td>{%= p.textForMRoomMessageEvent(ev) %}</td>
+                <td  itemprop="text">{%= p.textForMRoomMessageEvent(ev) %}</td>
             {% case "m.room.member" %}
                 <td></td>
                 <td>{%= p.textForMRoomMemberEvent(ev) %}</td>
@@ -228,6 +229,7 @@
 
 {% func (p *RoomChatPage) printPermalinkColumn(ev gomatrix.Event) %}
     <td class="timestamp" nowrap>
+        <meta itemprop="dateSent" content="{%= printTimestamp(ev.Timestamp) %}" />
         <a href="https://matrix.to/#/{%s p.RoomInfo.RoomID %}/{%s ev.ID %}">{%= printTimestamp(ev.Timestamp) %}</a>
     </td>
 {% endfunc %}
@@ -272,7 +274,7 @@
                     <th>Message</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody itemprop="mainEntity" itemscope itemtype="http://schema.org/Conversation">
                 {% for _, event := range p.Events %}
                     {%= p.printEvent(event) %}
                 {% endfor %}

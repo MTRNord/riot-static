@@ -26,12 +26,12 @@
     MemberInfo of {% space %}{%s p.MemberInfo.MXID %}
     <hr>
 
-    <table>
+    <table itemprop="mainEntity" itemscope itemtype="http://schema.org/Person">
         <tr>
             <td>Avatar</td>
             <td>
                 {% if p.MemberInfo.AvatarURL.IsValid() %}
-                    <a href="{%s p.MemberInfo.AvatarURL.ToURL() %}"><img src="{%s p.MemberInfo.AvatarURL.ToThumbURL(48, 48, "crop") %}" /></a>
+                    <a itemprop="image" href="{%s p.MemberInfo.AvatarURL.ToURL() %}"><img src="{%s p.MemberInfo.AvatarURL.ToThumbURL(48, 48, "crop") %}" /></a>
                 {% else %}
                     <img src="./img/logo_missing.png" />
                 {% endif %}
@@ -43,7 +43,7 @@
         </tr>
         <tr>
             <td>Display Name</td>
-            <td>{%s p.MemberInfo.DisplayName %}</td>
+            <td itemprop="name">{%s p.MemberInfo.DisplayName %}</td>
         </tr>
         <tr>
             <td>Permalink</td>

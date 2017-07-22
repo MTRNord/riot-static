@@ -27,7 +27,7 @@
         <td>
             <a href="./room/{%s Room.RoomID %}">
                 {% if Room.AvatarUrl != "" %}
-                    <img src="{%s Room.AvatarUrl %}" />
+                    <img itemprop="image" src="{%s Room.AvatarUrl %}" />
                 {% else %}
                     <img src="./img/logo_missing.png" />
                 {% endif %}
@@ -35,12 +35,12 @@
         </td>
         <td>
             <a href="./room/{%s Room.RoomID %}">
-                <div>{%= StrFallback(Room.Name, Room.CanonicalAlias, Room.RoomID) %}</div>
+                <div itemprop="name">{%= StrFallback(Room.Name, Room.CanonicalAlias, Room.RoomID) %}</div>
                 <sup>{%s Room.CanonicalAlias %}</sup>
             </a>
         </td>
         <td>{%d Room.NumJoinedMembers %}</td>
-        <td>{%s Room.Topic %}</td>
+        <td itemprop="description">{%s Room.Topic %}</td>
     </tr>
 {% endfunc %}
 
@@ -48,7 +48,7 @@
 
     {%= PaginatorCurPage(p) %}
 
-    <table id="roomList">
+    <table id="roomList" itemprop="mainEntity" itemscope itemtype="http://schema.org/Table">
         <thead>
             <tr>
                 <th>Logo</th>

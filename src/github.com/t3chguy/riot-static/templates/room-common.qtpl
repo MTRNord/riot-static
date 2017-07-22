@@ -4,22 +4,22 @@
 
 {% stripspace %}
 {% func PrintRoomHeader(roomInfo mxclient.RoomInfo) %}
-    <table id="roomHeader">
+    <table id="roomHeader" itemscope itemtype="http://schema.org/WPHeader">
         <tr>
             <td class="roomLogo" rowspan="2">
                 {% if roomInfo.AvatarURL.IsValid() %}
-                    <img class="roomLogo" src="{%s roomInfo.AvatarURL.ToThumbURL(64, 64, "crop") %}" />
+                    <img itemprop="image" class="roomLogo" src="{%s roomInfo.AvatarURL.ToThumbURL(64, 64, "crop") %}" />
                 {% else %}
                     <img class="roomLogo" src="./img/logo_missing.png" />
                 {% endif %}
             </td>
-            <td><h2>{%s roomInfo.Name %}</h2></td>
+            <td><h2 itemprop="name">{%s roomInfo.Name %}</h2></td>
             <td class="rightAlign">
                 <a href="./room/{%s roomInfo.RoomID %}/members">{%d roomInfo.NumMembers %}{% space %} Members</a>
             </td>
         </tr>
         <tr>
-            <td class="maxWidth">{%s roomInfo.Topic %}</td>
+            <td class="maxWidth" itemprop="description">{%s roomInfo.Topic %}</td>
             <td class="rightAlign">
                 <a href="./room/{%s roomInfo.RoomID %}/servers">{%d roomInfo.NumServers %}{% space %} Servers</a>
             </td>

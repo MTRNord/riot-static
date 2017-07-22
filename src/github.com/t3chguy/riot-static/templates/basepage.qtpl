@@ -10,10 +10,12 @@ PrintPage prints Page p
 {% stripspace %}
 {% func PageTemplate(p Page) %}
     <!DOCTYPE html>
-    <html lang="en">
+    <html itemscope itemtype="https://schema.org/WebSite" lang="en">
     <head>
         <meta charset="UTF-8">
         <title>{%= p.Title() %}</title>
+        <meta itemprop="name" content="{%= p.Title() %}">
+        <meta itemprop="description" content="Spiders Welcome Riot version">
         <style>
             /*tr {*/
                 /*height: 64px;*/

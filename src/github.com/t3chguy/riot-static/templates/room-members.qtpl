@@ -12,16 +12,16 @@
 
 
 {% func (p *RoomMembersPage) printMemberRow(Member *mxclient.MemberInfo) %}
-    <tr>
+    <tr itemscope itemtype="http://schema.org/Person">
         <td><a href="{%s p.BaseUrl() %}{%s Member.MXID %}">{%s Member.MXID %}</a></td>
         <td>
             {% if Member.AvatarURL.IsValid() %}
-                <img class="memberListAvatar" src="{%s Member.AvatarURL.ToThumbURL(48, 48, "crop") %}" />
+                <img itemprop="image" class="memberListAvatar" src="{%s Member.AvatarURL.ToThumbURL(48, 48, "crop") %}" />
             {% else %}
                 <img class="memberListAvatar" src="./img/logo_missing.png" />
             {% endif %}
         </td>
-        <td>{%s Member.DisplayName %}</td>
+        <td itemprop="name">{%s Member.DisplayName %}</td>
         <td>{%s Member.PowerLevel.String() %} ({%d Member.PowerLevel.Int() %})</td>
     </tr>
 {% endfunc %}
@@ -46,7 +46,7 @@
 
     {%= PaginatorCurPage(p) %}
 
-    <table>
+    <table itemprop="mainEntity" itemscope itemtype="http://schema.org/Table">
         <thead>
             <tr>
                 <td>MXID</td>
